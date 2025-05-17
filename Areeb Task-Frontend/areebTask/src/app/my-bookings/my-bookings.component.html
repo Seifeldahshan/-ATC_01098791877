@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <h2 class="mb-3">My Bookings</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <div *ngIf="bookings.length === 0">
+    <p>You have not booked any events yet.</p>
+  </div>
+
+  <div *ngFor="let booking of bookings" class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><strong> Name:</strong> {{ booking.eventRequest.name }}</h5>
+          <p class="card-text"><strong>Ticket Number:</strong> {{ booking.id }}</p>
+          <p class="card-text"><strong>Date:</strong> {{ booking.eventRequest.date | date:'mediumDate' }}</p>
+          <p class="card-text"><strong>Time:</strong> {{ booking.bookingDate }}</p>
+          <p class="card-text"><strong>Venue:</strong> {{ booking.eventRequest.venue }}</p>
+           <p 
+    class="mb-0" 
+    [ngClass]="booking.isExpired ? 'text-danger' : 'text-success'">
+    <strong>Status:</strong> {{ booking.isExpired ? 'Expired' : 'Active' }}
+  </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

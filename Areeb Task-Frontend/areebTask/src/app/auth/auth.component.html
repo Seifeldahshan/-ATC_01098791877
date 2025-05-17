@@ -1,0 +1,10 @@
+<app-login *ngIf="mode === 'login'"></app-login>
+<app-register *ngIf="mode === 'register'"></app-register>
+
+<div class="text-center mt-3">
+  <p>
+    <span *ngIf="mode === 'login'">Don't have an account?</span>
+    <span *ngIf="mode === 'register'">Already have an account?</span>
+    <a (click)="toggleMode()">{{ mode === 'login' ? 'Register' : 'Login' }}</a>
+  </p>
+</div>

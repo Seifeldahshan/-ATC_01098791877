@@ -1,0 +1,78 @@
+<form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="mx-auto p-4 shadow rounded" style="max-width: 400px; background: #f8f9fa;">
+  <h3 class="mb-4 text-center text-dark">Create Your Account</h3>
+
+  <div class="mb-4">
+    <label for="name" class="form-label fw-semibold text-dark">Full Name</label>
+    <input 
+      type="text" 
+      id="name" 
+      class="form-control form-control-lg" 
+      placeholder="Enter your full name"
+      [(ngModel)]="model.username" 
+      name="username" 
+      required />
+    <div *ngIf="registerForm.controls['username']?.invalid && registerForm.controls['username']?.touched">
+      <small class="text-danger">Full Name is required.</small>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <label for="email" class="form-label fw-semibold text-dark" >Email</label>
+    <input 
+      type="email" 
+      id="email" 
+      class="form-control form-control-lg" 
+      placeholder="Enter your email"
+      [(ngModel)]="model.email" 
+      name="email" 
+      required 
+      email />
+    <div *ngIf="registerForm.controls['email']?.invalid && registerForm.controls['email']?.touched">
+      <small class="text-danger">Please enter a valid email address.</small>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <label for="password" class="form-label fw-semibold text-dark ">Password</label>
+    <input 
+      type="password" 
+      id="password" 
+      class="form-control form-control-lg" 
+      placeholder="Enter your password"
+      [(ngModel)]="model.password" 
+      name="password" 
+      required 
+      minlength="6" 
+      pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" />
+    <div *ngIf="registerForm.controls['password']?.invalid && registerForm.controls['password']?.touched">
+      <small class="text-danger">Password must be at least 6 characters long and contain at least one letter and one number.</small>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <label for="confirmPassword" class="form-label fw-semibold text-dark">Confirm Password</label>
+    <input 
+      type="password" 
+      id="confirmPassword" 
+      class="form-control form-control-lg" 
+      placeholder="Confirm your password"
+      [(ngModel)]="confirmPassword" 
+      name="confirmPassword" 
+      required />
+    <div *ngIf="confirmPassword !== model.password && confirmPassword && confirmPassword !== ''">
+      <small class="text-danger">Passwords must match.</small>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger py-2">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success py-2">
+    {{ successMessage }}
+  </div>
+
+  <div class="d-grid gap-2">
+    <button type="submit" class="btn btn-dark btn-lg" [disabled]="registerForm.invalid">Register</button>
+  </div>
+</form>

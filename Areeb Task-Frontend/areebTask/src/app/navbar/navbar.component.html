@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg "  [ngClass]="isDarkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-light'">
+  
+  <a class="navbar-brand text-dark text-bold" href="#">Areeb</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/events">Events</a>
+      </li>
+            <li class="nav-item">
+        <a class="nav-link" routerLink="/my-bookings">My Bookings</a>
+      </li>
+    </ul>
+
+<div class="ms-auto d-flex align-items-right">
+  <label for="switch" class="switch mb-0 me-2">
+    <input id="switch" type="checkbox" [checked]="isDarkMode" (change)="toggleDarkMode()" />
+    <span class="slider"></span>
+    <span class="decoration"></span>
+  </label>
+  <span class="text-nowrap"> {{ isDarkMode ? 'Dark Mode' : 'Light Mode' }} </span>
+</div>
+
+
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item" *ngIf="!isLoggedIn">
+        <a class="btn btn-outline-primary me-2" routerLink="/auth">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn">
+        <button class="btn btn-outline-danger me-2" (click)="logout()">Logout</button>
+      </li>
+    </ul>
+
+
+
+  </div>
+
+  
+</nav>

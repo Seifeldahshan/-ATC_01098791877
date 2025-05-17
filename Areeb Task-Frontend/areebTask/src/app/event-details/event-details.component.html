@@ -1,0 +1,26 @@
+<div *ngIf="event" class="container-fluid px-0">
+  <img [src]="event.imageUrl" alt="{{ event.name }}" class="event-banner-img mb-4" />
+
+  <div class="container">
+    <h2 class="mb-3">{{ event.name }}</h2>
+
+      <div class="card mb-3 shadow dark-card">
+        <div class="card-body">
+        <p class="card-text"><strong>Description:</strong> {{ event.description }}</p>
+        <p class="card-text"><strong>Date:</strong> {{ event.date | date:'mediumDate' }}</p>
+        <p class="card-text"><strong>Start Time:</strong> {{ event.startTime }}</p>
+        <p class="card-text"><strong>Venue:</strong> {{ event.venue }}</p>
+        <p class="card-text"><strong>Price:</strong> ${{ event.price }}</p>
+
+        <button class="btn btn-outline-dark btn-inline-dark" (click)="bookEvent()">Book Now</button>
+
+        <button *ngIf="isBooked" class="btn btn-danger mt-3 ms-2" (click)="cancelBooking()">
+          Cancel Booking
+        </button>
+
+        <p class="text-success mt-2" *ngIf="successMessage">{{ successMessage }}</p>
+        <p class="text-danger mt-2" *ngIf="errorMessage">{{ errorMessage }}</p>
+      </div>
+    </div>
+  </div>
+</div>

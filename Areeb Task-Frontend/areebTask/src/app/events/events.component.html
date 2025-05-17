@@ -1,0 +1,104 @@
+<div class="container mt-5">
+  <h2 class="mb-4 text-center fw-bold">Upcoming Events</h2>
+
+  <div class="mb-4 w-100" style="max-width: 400px; margin: 0 auto;">
+    <label for="categorySelect" class="form-label fw-semibold">Filter by Category:</label>
+    <select
+      id="categorySelect"
+      class="form-select"
+      [(ngModel)]="selectedCategory"
+      (change)="onCategoryChange(selectedCategory)"
+      aria-label="Select event category"
+    >
+      <option *ngFor="let category of categories" [value]="category.name">
+        {{ category.name }}
+      </option>
+    </select>
+  </div>
+
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status" aria-hidden="true"></div>
+    <span class="visually-hidden">Loading events...</span>
+  </div>
+
+  <div class="row gy-4 " *ngIf="!loading && events.length > 0; else noEvents">
+    <div class="col-sm-6 col-md-4" *ngFor="let event of events">
+      <div class="card h-100 shadow-sm border-0 rounded-3">
+        <img 
+          [src]="event.imageUrl" 
+          class="card-img-top rounded-top" 
+          alt="Event image"
+          style="object-fit: cover; height: 180px;"
+          loading="lazy"/>
+        <div class="card-body d-flex flex-column  ">
+          <h5 class="card-title fw-bold">{{ event.name }}</h5>
+          <p class="card-text text-truncate" title="{{ event.description }}">
+            {{ event.description }}
+          </p>
+          <ul class="list-unstyled text-muted small mb-3">
+            <li><strong>Venue:</strong> {{ event.venue }}</li>
+            <li><strong>Start Time:</strong> {{ ('1970-01-01T' + event.startTime) | date: 'shortTime' }}</li>
+            <li><strong>Date:</strong> {{ event.date | date: 'mediumDate' }}</li>
+            <li><strong>Price:</strong> ${{ event.price }}</li>
+          </ul>
+          <div class="mt-auto">
+            <ng-container *ngIf="isEventBooked(event.id); else bookNowBtn">
+              <a
+                [routerLink]="['/events', event.id]"
+                class="badge bg-success p-2 w-100 text-decoration-none d-block text-center fw-semibold"
+              >
+                Booked
+              </a>
+            </ng-container>
+            <ng-template #bookNowBtn>
+              <a
+                [routerLink]="['/events', event.id]"
+                class="btn btn-outline-dark w-100 fw-semibold"
+              >
+                Book Now
+              </a>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noEvents>
+    <p class="text-center text-muted fst-italic mt-5">No upcoming events available.</p>
+  </ng-template>
+
+  <nav
+    *ngIf="totalPages > 1"
+    aria-label="Event pagination"
+    class="mt-5 d-flex justify-content-center"
+  >
+    <ul class="pagination pagination-sm">
+      <li class="page-item" [class.disabled]="currentPage === 0">
+        <button
+          class="page-link"
+          (click)="prevPage()"
+          [disabled]="currentPage === 0"
+          aria-label="Previous page"
+        >
+          &laquo; Previous
+        </button>
+      </li>
+      <li class="page-item disabled mx-2 align-items-center d-flex">
+        <span class="page-link border-0 bg-transparent">
+          Page {{ currentPage + 1 }} of {{ totalPages }}
+        </span>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+        <button
+          class="page-link"
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages - 1"
+          aria-label="Next page"
+        >
+          Next &raquo;
+        </button>
+      </li>
+    </ul>
+  </nav>
+</div>

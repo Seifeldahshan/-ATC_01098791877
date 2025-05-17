@@ -1,0 +1,42 @@
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="mx-auto p-4 shadow rounded" style="max-width: 400px; background: #f8f9fa;">
+<h3 class="mb-4 text-center text-dark">Login to Your Account</h3>
+
+  
+  <div class="mb-4">
+    <label for="email" class="form-label fw-semibold text-dark">Email</label>
+    <input 
+      type="email" 
+      id="email" 
+      class="form-control form-control-lg" 
+      placeholder="Enter your email"
+      [(ngModel)]="model.email" 
+      name="email" 
+      required email />
+    <div *ngIf="loginForm.controls['email']?.invalid && loginForm.controls['email']?.touched">
+      <small class="text-danger">Please enter a valid email address.</small>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <label for="password" class="form-label fw-semibold text-dark">Password</label>
+    <input 
+      type="password" 
+      id="password" 
+      class="form-control form-control-lg" 
+      placeholder="Enter your password"
+      [(ngModel)]="model.password" 
+      name="password" 
+      required />
+    <div *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched">
+      <small class="text-danger">Password is required.</small>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger py-2">
+    {{ errorMessage }}
+  </div>
+
+  <div class="d-grid gap-2">
+    <button type="submit" class="btn btn-dark btn-lg" [disabled]="loginForm.invalid">Login</button>
+  </div>
+</form>

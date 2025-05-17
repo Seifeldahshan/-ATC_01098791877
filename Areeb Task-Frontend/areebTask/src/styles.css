@@ -1,0 +1,28 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+body {
+  background-color: #fffed1;
+  color: #000;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme {
+  background-color: #121212;
+  color: #d1d1d1;
+}
+
+body.dark-theme a {
+  color: #66aaff;
+}
+
+body.dark-theme .container {
+  background-color: #1e1e1e;
+  color: #d8d8d8;
+}
+
+/* Example button override */
+body.dark-theme .btn-primary {
+  background-color: #b9b9b9;
+  border-color: #d3d3d3;
+  color: rgb(201, 201, 201);
+}
